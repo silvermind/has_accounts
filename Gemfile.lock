@@ -74,7 +74,6 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     multi_json (1.11.1)
-    mysql2 (0.3.18)
     pg (0.18.2)
     polyglot (0.3.5)
     power_assert (0.2.3)
@@ -174,7 +173,6 @@ DEPENDENCIES
   acts-as-taggable-on (~> 2.4.1)
   factory_girl_rails (~> 1.1)
   has_vcards
-  mysql2
   pg
   pry-byebug
   pry-rails
@@ -186,3 +184,6 @@ DEPENDENCIES
   sqlite3
   test-unit
   validates_timeliness
+
+BUNDLED WITH
+   1.17.1

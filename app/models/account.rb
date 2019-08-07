@@ -1,7 +1,7 @@
 # Account model
 class Account < ActiveRecord::Base
   # Access restrictions
-  attr_accessible :title, :code
+  # attr_accessible :title, :code
 
   # Scopes
   default_scope order: 'code'
@@ -25,8 +25,12 @@ class Account < ActiveRecord::Base
   # Account Type
   # ============
   belongs_to :account_type
-  attr_accessible :title, :code, :account_type_id, :account_type
+  # attr_accessible :title, :code, :account_type_id, :account_type
   validates_presence_of :account_type
+
+  # New Grouping
+  belongs_to :account_grouping_type
+  attr_accessible :title, :code, :account_type_id, :account_type, :account_grouping_type, :account_grouping_type_id
 
   def asset_account?
     Account.by_type(%w(current_assets capital_assets costs)).exists?(self)
@@ -45,6 +49,10 @@ class Account < ActiveRecord::Base
   end
 
   scope :by_type, lambda { |value| includes(:account_type).where('account_types.name' => value) } do
+    include AccountScopeExtension
+  end
+
+  scope :by_account_grouping_type, lambda { |value| includes(:account_grouping_type).where('account_grouping_types.id' => value.to_s).reorder('accounts.code') } do
     include AccountScopeExtension
   end
 
